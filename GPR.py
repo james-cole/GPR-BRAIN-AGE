@@ -164,7 +164,7 @@ class GaussianProcessRegression(object):
 
 		cost = self.build_likelihood()
 		tf.summary.scalar('cost',tf.squeeze(cost))
-		opt =tf.train.AdamOptimizer(0.01)
+		opt =tf.train.GradientDescentOptimizer(0.01)
 		train_op = opt.minimize(cost)
 		#predictions = self.predict_f_samples_full_cov(self.X_test)
 		predictions = self.build_predict(self.X_test)
@@ -178,7 +178,7 @@ class GaussianProcessRegression(object):
 		merged = tf.summary.merge_all()
 		train_writer = tf.summary.FileWriter('./tensorboard/',self.sess.graph)
 		self.sess.run(tf.global_variables_initializer())
-		for i in range(1000):
+		for i in range(1):
 
 			_,costul_actual,summary  = self.sess.run([train_op,cost,merged],feed_dict={self.X_train:X_training,self.Y_train:Y_training,self.X_validation:X_validation,self.Y_validation:Y_validation})
 			train_writer.add_summary(summary,i)
