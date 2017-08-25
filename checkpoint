@@ -1,0 +1,2 @@
+model_checkpoint_path: "GPR_model"
+all_model_checkpoint_paths: "GPR_model"
